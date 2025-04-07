@@ -5,6 +5,7 @@ import Layout from "./layout";
 const SignIn = lazy(() => import("@/app/sign-in"));
 const SignUp = lazy(() => import("@/app/sign-up"));
 
+const Dashboard = lazy(() => import("@/pages/dashboard/dashboard"));
 const Home = lazy(() => import("@/pages/home/home"));
 const Inbox = lazy(() => import("@/pages/inbox/inbox"));
 const Users = lazy(() => import("@/pages/users/users"));
@@ -26,7 +27,12 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/",
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        index: true,
+        path: "/home",
         element: <Home />,
       },
       {

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-export const ThemeProvider = () => {
+export const ToggleTheme = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
