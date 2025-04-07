@@ -6,7 +6,7 @@ interface Props {
 
 const PageWrapper = ({ children }: Props) => {
   return (
-    <div className="w-full h-full bg-gray-100 dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-600 shadow-xs p-4 overflow-hidden animation-fade-in">
+    <div className="w-full h-full bg-[var(--sidebar)] rounded-xl border-1 border-[var(--border)] shadow-xs p-4 overflow-hidden animation-fade-in">
       {children}
     </div>
   );
