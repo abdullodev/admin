@@ -29,25 +29,25 @@ import { NavUser } from "./nav-users";
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "abdullo_me",
+    email: "abdulloergashxojayev01@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Tashkent",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "Main",
     },
     {
-      name: "Acme Corp.",
+      name: "Namangan",
       logo: AudioWaveform,
-      plan: "Startup",
+      plan: "Secondary",
     },
     {
-      name: "Evil Corp.",
+      name: "Fargana",
       logo: Command,
-      plan: "Free",
+      plan: "Other",
     },
   ],
   navMain: [
@@ -56,6 +56,7 @@ const data = {
       url: "/dashboard",
       icon: PieChart,
     },
+
     {
       title: "Playground",
       url: "#",

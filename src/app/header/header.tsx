@@ -1,12 +1,59 @@
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ThemeProvider } from "@/feature/toggle-mode";
+import { ToggleTheme } from "@/feature/toggle-mode";
+import { useLocation, Link } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter(Boolean);
+
   return (
-    <div className="flex items-center h-full justify-between px-4">
-      <SidebarTrigger />
-      <ThemeProvider />
-    </div>
+    <header className="flex sticky top-0 z-50 w-full justify-between px-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-gray-100 dark:bg-gray-800">
+      <div className="flex items-center gap-2">
+        <SidebarTrigger className="-ml-1" />
+        <Breadcrumb>
+          <BreadcrumbList>
+            {pathnames.length === 0 ? (
+              <BreadcrumbItem>
+                <BreadcrumbPage>Home</BreadcrumbPage>
+              </BreadcrumbItem>
+            ) : (
+              pathnames.map((name, index) => {
+                const routeTo = "/" + pathnames.slice(0, index + 1).join("/");
+                const isLast = index === pathnames.length - 1;
+                const formattedName = name
+                  .replace(/-/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase());
+
+                return (
+                  <BreadcrumbItem key={routeTo}>
+                    {isLast ? (
+                      <BreadcrumbPage>{formattedName}</BreadcrumbPage>
+                    ) : (
+                      <>
+                        <BreadcrumbLink asChild>
+                          <Link to={routeTo}>{formattedName}</Link>
+                        </BreadcrumbLink>
+                        <BreadcrumbSeparator />
+                      </>
+                    )}
+                  </BreadcrumbItem>
+                );
+              })
+            )}
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <ToggleTheme />
+    </header>
   );
 };
 

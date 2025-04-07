@@ -1,48 +1,19 @@
 import { AppSidebar } from "@/app/sidebar/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { ToggleTheme } from "@/feature/toggle-mode";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Outlet } from "react-router-dom";
+import Header from "./header/header";
 
 export default function Layout() {
+  const sidebar_state = `${document.cookie}`.split(`sidebar_state=`);
+  const def = sidebar_state.length > 1 ? sidebar_state[1] === "true" : false;
+
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={def}>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <ToggleTheme />
-        </header>
-        <main className="flex h-full w-full flex-col overflow-hidden bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:pt-2">
-          <div className="flex h-full w-full max-w-[100rem] flex-col items-center justify-center gap-8 overflow-hidden p-4">
+        <Header />
+        <main className="flex w-full flex-col overflow-hidden bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:pt-2">
+          <div className="flex overflow-auto w-full max-w-[100rem] flex-col items-center justify-center gap-8 p-4">
             <Outlet />
           </div>
         </main>

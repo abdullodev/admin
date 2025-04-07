@@ -36,12 +36,11 @@ export function NavMain({ items }: SidebarMenuItemProps) {
   const { pathname } = useLocation();
   const { open, isMobile } = useSidebar();
 
-  const isActive = (url: string) => url === pathname;
+  const isActive = (url: string) => pathname.startsWith(url);
 
   // Helper function to check if any child is active
-  const hasActiveChild = (item: SidebarMenuProps) => {
-    return item.items?.some((subItem) => subItem.url === pathname) || false;
-  };
+  const hasActiveChild = (item: SidebarMenuProps) =>
+    item.items?.some((subItem) => isActive(subItem.url)) ?? false;
 
   return (
     <SidebarGroup>
@@ -82,7 +81,7 @@ export function NavMain({ items }: SidebarMenuItemProps) {
                               asChild
                               className={
                                 isActive(subItem.url)
-                                  ? "bg-[var(--sidebar-primary)] hover:bg-[var(--sidebar-primary)] text-[var(--sidebar-primary-foreground)] hover:text-[var(--sidebar-primary-foreground)]"
+                                  ? "bg-[var(--sidebar-primary)] hover:bg-[var(--sidebar-primary)] text-white hover:text-white"
                                   : "hover:bg-[var(--sidebar-accent)]"
                               }
                             >
@@ -148,7 +147,7 @@ export function NavMain({ items }: SidebarMenuItemProps) {
                 tooltip={item.title}
                 className={
                   isActive(item.url)
-                    ? "bg-[var(--sidebar-primary)] hover:bg-[var(--sidebar-primary)] text-[var(--sidebar-primary-foreground)] hover:text-[var(--sidebar-primary-foreground)] "
+                    ? "bg-[var(--sidebar-primary)] hover:bg-[var(--sidebar-primary)] text-white hover:text-white "
                     : "hover:bg-[var(--sidebar-accent)]"
                 }
               >
