@@ -44,6 +44,7 @@ function Button({
   asChild = false,
   children,
   submitting = false,
+  type = "button",
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
@@ -58,6 +59,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       disabled={submitting || disabled}
       {...props}
+      type={type}
     >
       {submitting && <Loader2 className="animate-spin" />}
       {children}
