@@ -17,9 +17,26 @@ export const ToggleTheme = () => {
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
+    const disableTransitionsStyle = document.createElement("style");
+    disableTransitionsStyle.textContent = `
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    `;
+    document.head.appendChild(disableTransitionsStyle);
+
+    document.body.offsetHeight;
+
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
+
+    document.documentElement.setAttribute("data-theme", newTheme);
+
+    setTimeout(() => {
+      document.head.removeChild(disableTransitionsStyle);
+    }, 50);
   };
 
   return (

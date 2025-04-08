@@ -12,7 +12,7 @@ export default function Layout() {
       <AppSidebar />
       <SidebarInset>
         <Header />
-        <main className="flex w-full flex-col overflow-hidden bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:pt-2">
+        <main className="flex w-full flex-col overflow-hidden bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:pt-0">
           <div className="flex overflow-auto w-full max-w-[100rem] flex-col items-center justify-center gap-8 p-4">
             <Outlet />
           </div>
