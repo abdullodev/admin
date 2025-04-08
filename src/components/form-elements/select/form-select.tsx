@@ -87,6 +87,7 @@ export default function FormSelect({
             getOptionValue={(option) => option.id.toString()}
             placeholder={placeholder}
             isDisabled={disabled}
+            className="mt-1 !h-10 !bg-[var(--accent)]"
             isClearable
             classNames={{
               control: (state) =>
