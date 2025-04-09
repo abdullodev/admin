@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import Layout from "./layout";
 
 const SignIn = lazy(() => import("@/app/sign-in"));
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <Home />,
+        element: <Navigate to={"/dashboard"} replace />,
       },
     ],
   },
