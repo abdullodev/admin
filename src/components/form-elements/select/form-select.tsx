@@ -107,7 +107,7 @@ export default function FormSelect({
                   : "!text-[var(--accent)]",
               menu: () => "!bg-[var(--card)]",
               option: (state) =>
-                ` ${state.isFocused ? "!bg-[var(--primary)]/70" : ""} ${
+                ` ${state.isFocused ? "!bg-[var(--primary)]/40" : ""} ${
                   state.isSelected ? "!bg-[var(--primary)]/70" : ""
                 }
                 `,
