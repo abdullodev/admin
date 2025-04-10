@@ -22,7 +22,7 @@ interface FormSelectProps {
 }
 
 // Default options
-const defaultOptions: SelectOption[] = Array.from({ length: 20 }, (_, i) => ({
+const defaultOptions: SelectOption[] = Array.from({ length: 120 }, (_, i) => ({
   label: `Select ${i}`,
   id: i,
 }));
@@ -91,11 +91,12 @@ export default function FormSelect({
             isClearable
             classNames={{
               control: (state) =>
-                `!border !rounded-md !bg-transparent !transition-all !h-10 ${
-                  state.isFocused && !hasError
-                    ? "!border-[var(--primary)] !ring-1 !ring-[var(--primary)]"
-                    : ""
-                } ${
+                `!border !rounded-md !bg-transparent !transition-all !h-10
+               ${
+                 state.isFocused && !hasError
+                   ? "!border-[var(--primary)] !ring-1 !ring-[var(--primary)]"
+                   : ""
+               } ${
                   !state.isFocused && !hasError ? "!border-[var(--border)]" : ""
                 } ${hasError ? "!border-red-600" : ""} ${
                   state.isFocused && hasError ? "!ring-1 !ring-red-600" : ""
@@ -104,13 +105,14 @@ export default function FormSelect({
               placeholder: () =>
                 hasError
                   ? "!text-red-600 dark:!text-red-100"
-                  : "!text-[var(--accent)]",
+                  : "!text-zinc-400 dark:!text-zinc-500",
               menu: () => "!bg-[var(--card)]",
               option: (state) =>
                 ` ${state.isFocused ? "!bg-[var(--primary)]/20" : ""} ${
                   state.isSelected ? "!bg-[var(--primary)]/80" : ""
                 }
                 `,
+              input: () => "dark:!text-white",
             }}
           />
         )}
