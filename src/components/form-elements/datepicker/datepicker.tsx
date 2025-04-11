@@ -8,10 +8,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { Controller, useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
-import { useState, useRef, useEffect } from "react";
+import { CalendarIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 
 const DEFAULT_FORMAT = "DD.MM.YYYY";
 
@@ -47,12 +47,6 @@ export default function FormDatePicker({
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [rawValue, setRawValue] = useState("");
-
-  // Function to validate date format
-  const isValidDate = (dateStr: string, format: string): boolean => {
-    if (!dateStr) return true; // Allow empty values
-    return dayjs(dateStr, format).format(format) === dateStr;
-  };
 
   // Format raw digits into the date format
   const formatDate = (digits: string) => {
@@ -155,9 +149,6 @@ export default function FormDatePicker({
         name={name}
         rules={{
           ...(required ? { required: message } : {}),
-          validate: (value) =>
-            isValidDate(value, date_format) ||
-            `Please enter a valid date in ${date_format} format`,
         }}
         render={({ field }) => {
           // Update rawValue when field.value changes from outside (e.g., calendar selection)

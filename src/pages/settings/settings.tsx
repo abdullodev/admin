@@ -1,8 +1,11 @@
-import { PageWrapper } from "@/components";
-import React from "react";
+import { CustomTable, PageWrapper } from "@/components";
 
 const Settings = () => {
-  return <PageWrapper>Settings</PageWrapper>;
+  return (
+    <PageWrapper>
+      <CustomTable />
+    </PageWrapper>
+  );
 };
 
 export default Settings;
