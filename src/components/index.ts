@@ -1,5 +1,5 @@
 import PageWrapper from "./custom-elements/page-wrapper";
-import CustomTable from "./custom-elements/custom-table/custom-table";
+import CustomTable from "./custom-elements/custom-table/table-wrapper";
 
 //-------form elements-------------
 import FormInput from "./form-elements/input/input";

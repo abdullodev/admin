@@ -3,7 +3,7 @@ import { CustomTable, PageWrapper } from "@/components";
 const Settings = () => {
   return (
     <PageWrapper>
-      <CustomTable />
+      <CustomTable columns={[]} />
     </PageWrapper>
   );
 };
