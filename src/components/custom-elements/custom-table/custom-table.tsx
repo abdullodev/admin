@@ -1,57 +1,79 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { TABLE_FOOTER, TABLE_HEADER } from "./common/constants";
-import Row from "./row/row";
+import type { ColDef } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { AgGridReact } from "ag-grid-react";
+import { useRef, useState } from "react";
 
-const invoices = Array.from({ length: 500 }, (_, i) => ({
-  invoice: "INV00" + i,
-  paymentStatus: "Paid" + i,
-  totalAmount: "$" + (250 + i) + ".00",
-  paymentMethod: "Credit Card" + i,
-}));
+ModuleRegistry.registerModules([AllCommunityModule]);
 
-interface Props {
-  columns: any[];
-  dataUrl?: string;
-  data?: any[];
+// Generic Row Data Interface
+interface RowData {
+  [key: string]: any;
 }
 
-function CustomTable({ columns, data, dataUrl }: Props) {
-  console.log("data", data);
-  console.log("dataUrl", dataUrl);
+interface CustomTableProps<T extends RowData> {
+  columns: ColDef<T>[];
+  staticData: T[];
+  title?: string;
+  pagination?: boolean;
+}
+
+function CustomTable<T extends RowData>({
+  columns,
+  staticData,
+  title,
+  pagination = false,
+}: CustomTableProps<T>) {
+  // State for row data with unique IDs
+  const [rowData, setRowData] = useState<(T & { __id?: string })[]>(() =>
+    staticData.map((row, index) => ({ ...row, __id: `row-${index}` }))
+  );
+
+  // Reference to the grid API
+  const gridRef = useRef<any>(null);
+
+  // Default column definition
+  const defaultColDef: ColDef = {
+    flex: 1,
+    sortable: true,
+    filter: true,
+    resizable: true,
+  };
+
+  // Add the cell renderer to each column
+  const enhancedColumns: ColDef<T>[] = columns.map((col) => ({
+    ...col,
+    cellRenderer: col.cellRenderer,
+  }));
+
+  // Handle row click
+  const onRowClicked = (event: any) => {
+    const clickedRowId = event.data.__id;
+
+    console.log("first clickedRowId", clickedRowId);
+  };
 
   return (
-    <div className="h-[calc(100vh-130px)] max-h-150 overflow-y-auto relative rounded-md ">
-      <Table>
-        <TableHeader className={"sticky top-0 " + TABLE_HEADER}>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Actual/Expected</TableHead>
-            <TableHead>Slant Range</TableHead>
-            <TableHead>Slant Range</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((row) => (
-            <Row row={row} key={row.invoice} />
-          ))}
-        </TableBody>
-        <TableFooter className={" " + TABLE_FOOTER}>
-          <TableRow>
-            <TableCell>Full Amount</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell>250 000$</TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+    <div className="flex flex-col min-w-[800px] overflow-auto">
+      {title && <h2 className="text-xl font-bold mb-4">{title}</h2>}
+
+      <div className="w-full h-120 border border-gray-200 rounded-md">
+        <AgGridReact
+          ref={gridRef}
+          rowData={rowData}
+          columnDefs={enhancedColumns}
+          defaultColDef={defaultColDef}
+          animateRows={true}
+          rowSelection="single"
+          onRowClicked={onRowClicked}
+          getRowId={(params) => params.data.__id}
+          masterDetail={true}
+          detailRowHeight={200}
+          rowHeight={38}
+          headerHeight={40}
+          pagination={pagination}
+          paginationPageSize={20}
+        />
+      </div>
     </div>
   );
 }
