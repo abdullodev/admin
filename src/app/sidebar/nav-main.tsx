@@ -102,7 +102,7 @@ export function NavMain({ items }: SidebarMenuItemProps) {
                   <SidebarMenuButton
                     tooltip={{
                       content: item.title,
-
+                      className: "ml-2",
                       children: (
                         <SidebarMenuSub className="m-0 w-44">
                           {item.items?.map((subItem) => (
